@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CatListViewController.swift
 //  test
 //
 //  Created by Никитин Артем on 1.09.23.
