@@ -2,7 +2,7 @@
 //  NetworkService.swift
 //  test
 //
-//  Created by Никитин Артем on 31.08.23.
+//  Created by Никитин Артем on 1.09.23.
 //
 
 import Foundation
@@ -33,7 +33,6 @@ class NetworkService {
                 completion(nil)
             }
         }
-        
         task.resume()
     }
 }
