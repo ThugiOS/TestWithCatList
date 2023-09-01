@@ -26,11 +26,7 @@ class CatListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        viewModel.fetchCats { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
+        fetchCats()
     }
 
     // MARK: - UI Components
@@ -50,12 +46,21 @@ class CatListViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    // MARK: - Data Fetching
+    private func fetchCats() {
+        viewModel.fetchNextPage { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - CollectionView Functions
 extension CatListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(viewModel.numberOfCats, 10)
+        return viewModel.numberOfCats
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -71,4 +76,15 @@ extension CatListViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width / 2.08, height: collectionView.frame.height / 3)
     }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
+
+        if offsetY > contentHeight - scrollViewHeight, viewModel.hasMoreData {
+            fetchCats()
+        }
+    }
+
 }

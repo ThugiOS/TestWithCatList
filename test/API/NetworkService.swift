@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class NetworkService {
+class NetworkService {
     
     private func createURL() -> URL? {
         let tunnel = "https://"
@@ -18,20 +18,31 @@ final class NetworkService {
         return url
     }
     
-    func fetchCats(completion: @escaping ([Cat]?) -> Void) {
+    func fetchCats(page: Int, itemsPerPage: Int, completion: @escaping ([Cat]?) -> Void) {
         guard let url = createURL() else {
             completion(nil)
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let error {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        components?.queryItems = [
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "limit", value: String(itemsPerPage))
+        ]
+
+        guard let finalURL = components?.url else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: finalURL) { (data, _, error) in
+            if let error = error {
                 print("Error fetching data: \(error)")
                 completion(nil)
                 return
             }
             
-            if let data {
+            if let data = data {
                 do {
                     let cats = try JSONDecoder().decode([Cat].self, from: data)
                     completion(cats)
