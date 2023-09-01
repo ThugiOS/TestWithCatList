@@ -8,20 +8,22 @@
 import Foundation
 
 class NetworkService {
+    private let urlString = "https://api.thecatapi.com/v1/breeds"
+    
     func fetchCats(completion: @escaping ([Cat]?) -> Void) {
-        guard let url = URL(string: "https://api.thecatapi.com/v1/breeds") else {
+        guard let url = URL(string: urlString) else {
             completion(nil)
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let error = error {
+            if let error {
                 print("Error fetching data: \(error)")
                 completion(nil)
                 return
             }
             
-            if let data = data {
+            if let data {
                 do {
                     let cats = try JSONDecoder().decode([Cat].self, from: data)
                     completion(cats)
