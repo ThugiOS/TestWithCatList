@@ -31,7 +31,6 @@ class CatListViewController: UIViewController {
 
     // MARK: - UI Components
     private func setupUI() {
-        title = "Cat List"
         view.backgroundColor = .systemBackground
 
         view.addSubview(collectionView)
