@@ -1,8 +1,4 @@
 <img src="https://img.shields.io/badge/Swift-UIKit-success">
-
-# iCryptoPro
-
----
 ## Stack:
 ### Architecture
 - MVVM
@@ -11,13 +7,12 @@
 - SDWebImage
 ---
 <p align="center">
-      <img src="https://github.com/ThugiOS/TestWithCatList/blob/main/media/cats.png" width="420">
+      <img src="https://github.com/ThugiOS/TestWithCatList/blob/main/media/cats.png" width="1024">
 </p>
-
 ---
 #### Фото кэшируются с помощью фреймворка SDWebImage
 <p align="center">
-      <img src="https://github.com/ThugiOS/TestWithCatList/blob/main/media/screen.gif" width="320"><img 
+      <img src="https://github.com/ThugiOS/TestWithCatList/blob/main/media/screen.gif" width="1024"><img 
 </p>
 
 #### Contact with me
