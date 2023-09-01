@@ -14,7 +14,6 @@ class NetworkService {
         let server = "api.thecatapi.com"
         let endpoint = "/v1/breeds"
         let urlStr = tunnel + server + endpoint
-        
         let url = URL(string: urlStr)
         return url
     }
