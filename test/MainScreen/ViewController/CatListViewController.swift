@@ -26,7 +26,11 @@ class CatListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        fetchCats()
+        viewModel.fetchCats { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
 
     // MARK: - UI Components
@@ -46,19 +50,9 @@ class CatListViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
-    // MARK: - Private Methods
-    private func fetchCats() {
-        viewModel.fetchCats { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-    }
 }
 
-
-// MARK: - Extensions
+// MARK: - CollectionView Functions
 extension CatListViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(viewModel.numberOfCats, 10)

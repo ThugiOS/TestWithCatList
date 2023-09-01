@@ -7,10 +7,18 @@
 
 import Foundation
 
+protocol CatListViewModelProtocol {
+    var numberOfCats: Int { get }
+    func fetchCats(completion: @escaping () -> Void)
+    func cat(at index: Int) -> Cat
+}
+
 class CatListViewModel {
     private var cats: [Cat] = []
     private let networkService = NetworkService()
-    
+}
+
+extension CatListViewModel: CatListViewModelProtocol {
     var numberOfCats: Int {
         return cats.count
     }
