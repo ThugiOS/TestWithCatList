@@ -8,10 +8,19 @@
 import Foundation
 
 class NetworkService {
-    private let urlString = "https://api.thecatapi.com/v1/breeds"
+    
+    private func createURL() -> URL? {
+        let tunnel = "https://"
+        let server = "api.thecatapi.com"
+        let endpoint = "/v1/breeds"
+        let urlStr = tunnel + server + endpoint
+        
+        let url = URL(string: urlStr)
+        return url
+    }
     
     func fetchCats(completion: @escaping ([Cat]?) -> Void) {
-        guard let url = URL(string: urlString) else {
+        guard let url = createURL() else {
             completion(nil)
             return
         }
