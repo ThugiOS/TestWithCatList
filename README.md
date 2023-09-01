@@ -1,6 +1,5 @@
 <img src="https://img.shields.io/badge/Swift-UIKit-success">
 
-## Stack:
 ### Architecture
 - MVVM
 ### Frameworks
